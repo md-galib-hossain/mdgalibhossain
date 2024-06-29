@@ -1,9 +1,56 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 
 
 *{
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  font-family: "Roboto Condensed", sans-serif;
+  /* font-family: "Roboto Condensed", sans-serif; */
+
+}
+body {
+  font-family: 'Roboto', sans-serif;
+
+}
+.roboto {
+  font-family: 'Poppins', sans-serif;
+
+}
+.mouse {
+	width: 30px;
+	height: 55px;
+	border: 3px solid #333;
+	border-radius: 60px;
+	position: relative;
+	&::before {
+		content: '';
+		width: 6px;
+		height: 6px;
+		position: absolute;
+		top: 10px;
+		left: 50%;
+		transform: translateX(-50%);
+		background-color: #333;
+		border-radius: 50%;
+		opacity: 1;
+		animation: wheel 2s infinite;
+		-webkit-animation: wheel 2s infinite;
+	}
+}
+
+@keyframes wheel {
+	to {
+		opacity: 0;
+		top: 60px;
+	}
+}
+
+@-webkit-keyframes wheel {
+	to {
+		opacity: 0;
+		top: 60px;
+	}
 }
