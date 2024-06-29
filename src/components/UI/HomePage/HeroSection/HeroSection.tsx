@@ -9,7 +9,7 @@ const HeroSection = ({ user }: any) => {
 
   return (
     <Container>
-    <Box
+    <Box  mt={4}
       sx={{
         display: "flex",
         flexDirection: "column",

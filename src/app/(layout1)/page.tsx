@@ -1,3 +1,5 @@
+import Navbar from "@/components/Shared/Navbar/Navbar";
+import AboutUs from "@/components/UI/HomePage/AboutUs/AboutUs";
 import HeroSection from "@/components/UI/HomePage/HeroSection/HeroSection";
 import React from "react";
 
@@ -30,8 +32,9 @@ const Homepage = () => {
   };
   return (
     <>
-      Md Galib hossain portfolio
+    <Navbar/>
       <HeroSection user={user} />
+    <AboutUs/>
     </>
   );
 };
