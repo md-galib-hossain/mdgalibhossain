@@ -4,12 +4,12 @@ export const theme = createTheme({
   palette: {
     primary: {
       main: "#203912",
-      light : '#90D26E'
+      light : '#d9e9d0'
 
     },
     secondary: {
-      main: "#111827",
-      light : '#D1FFB9'
+      main: "#242424",
+      light : '#D5E9D5'
     },
   },
   components: {
@@ -31,7 +31,7 @@ export const theme = createTheme({
   },
   typography:{
     body1 :{
-        color : "#0B1134CC"
+        color : "#101F0A"
     }
   }
 });

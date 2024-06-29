@@ -11,8 +11,9 @@ import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 import { Box } from "@mui/material";
 import Link from "next/link";
+import { theme } from "@/lib/theme/theme";
 
-const pages = ["Products", "Pricing", "Blog"];
+const pages = ["Projects", "Pricing", "Blog"];
 
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
@@ -27,12 +28,16 @@ function ResponsiveAppBar() {
     setAnchorElNav(null);
   };
 
-  return (
+  return  (
     <AppBar
-      position="static"
+      position="fixed"
       color="transparent"
       elevation={0}
-      sx={{ paddingX: 4 }}
+      sx={{
+        paddingX: 4,
+        backgroundColor: "rgba(255, 255, 255, 0.8)", 
+        backdropFilter: "blur(10px)", 
+      }}
     >
       <Container maxWidth="xl">
         <Toolbar disableGutters>
@@ -84,8 +89,20 @@ function ResponsiveAppBar() {
             ))}
           </Box>
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
-            <Button>Resume</Button>
-          </Box>
+  <Button 
+    variant="outlined" 
+    sx={{ 
+      borderBottom: `2px solid ${theme.palette.secondary.main}`,
+      borderLeft: `2px solid ${theme.palette.secondary.main}`,
+      '&:hover': {
+        border: `2px solid ${theme.palette.secondary.light}`
+      }
+    }}
+  >
+    Resume
+  </Button>
+</Box>
+
           {/* large screen end */}
 
           {/* small screen start */}
