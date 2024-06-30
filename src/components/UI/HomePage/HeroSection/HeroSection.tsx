@@ -2,6 +2,7 @@
 import { Avatar, Box, Button, Container, Stack, Typography } from "@mui/material";
 import React from "react";
 import "./HeroSection.css";
+import Link from "next/link";
 
 const HeroSection = ({ user }: any) => {
   const statusColor = user?.status === "available" ? "green" : "orange";
@@ -78,10 +79,10 @@ const HeroSection = ({ user }: any) => {
             {user?.headline}
           </Typography>
           <Stack direction={"row"} spacing={2} mt={4}>
-            <Button sx={{paddingLeft : 5,paddingRight : 5}} onClick={() => { console.log("haha") }}>
+            <Button sx={{paddingLeft : 5,paddingRight : 5}} component={Link} href="#projects">
               Projects
             </Button>
-            <Button sx={{paddingLeft : 5,paddingRight : 5}}  variant="outlined" onClick={() => { console.log("haha") }}>
+            <Button sx={{paddingLeft : 5,paddingRight : 5}}  variant="outlined" component={Link} href="#contact-me">
               Hire me
             </Button>
           </Stack>

@@ -5,7 +5,7 @@ import Image from "next/image";
 
 const AboutMe = () => {
   return (
-    <Box mt={15}>
+    <Box mt={35} id="about-me">
       <Container maxWidth="lg">
         <Typography variant="h3" sx={{textAlign : "center"}} >
           About Me
