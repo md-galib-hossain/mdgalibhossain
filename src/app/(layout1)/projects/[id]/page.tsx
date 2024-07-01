@@ -11,52 +11,19 @@ import {
   MenuItem,
   IconButton,
   Stack,
+  CircularProgress,
 } from "@mui/material";
 import { styled } from "@mui/system";
 import ComputerWindowCard from "@/components/UI/HomePage/Projects/ComputerWindowCard"; // Adjust the import as needed
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
-// import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-// import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import Link from "next/link";
 import { theme } from "@/lib/theme/theme";
-
-const project = {
-  id: 1,
-  title: "CareConnect",
-  coverImage: "https://i.ibb.co/tXJGnGw/Screenshot-2024-06-29-230011.png",
-  images: [
-    "https://i.ibb.co/tXJGnGw/Screenshot-2024-06-29-230011.png",
-    "https://i.ibb.co/tXJGnGw/Screenshot-2024-06-29-230011.png",
-    "https://i.ibb.co/tXJGnGw/Screenshot-2024-06-29-230011.png",
-    "https://i.ibb.co/tXJGnGw/Screenshot-2024-06-29-230011.png",
-    "https://i.ibb.co/tXJGnGw/Screenshot-2024-06-29-230011.png",
-  ],
-  description: {
-    heading: "A healthcare management system",
-    text: "This project helps connect patients with doctors and manage appointments efficiently. This prssssss sssssss ssssssss ssssssssssssss ssssssssssss sssssssssssss sssssss soject helps connect patients with doctors and manage appointments efficiently.",
-  },
-  technologies: [
-    "HTML",
-    "CSS",
-    "JavaScript",
-    "React",
-    "React",
-    "React",
-    "React",
-    "React",
-  ],
-  links: {
-    frontEnd: "https://github.com/md-galib-hossain/careconnect-frontend",
-    backEnd: "https://github.com/md-galib-hossain/CareConnect-Backend",
-    liveLink: "https://careconnect.com",
-  },
-};
+import useFetch from "@/hooks/useFetch";
 
 const StickyBox = styled(Box)(({ theme }) => ({
   position: "sticky",
   top: theme.spacing(10),
-
   zIndex: 1,
   backgroundColor: theme.palette.background.paper,
   padding: theme.spacing(2),
@@ -75,36 +42,13 @@ const RightGrid = styled(Grid)(({ theme }) => ({
   marginTop: theme.spacing(2),
 }));
 
-// const FloatingBox = styled(Box)(({ theme }) => ({
-//   position: "fixed",
-//   bottom: theme.spacing(2),
-//   right: theme.spacing(2),
-//   backgroundColor: theme.palette.primary.main,
-//   color: theme.palette.primary.contrastText,
-//   padding: theme.spacing(1),
-//   borderRadius: theme.shape.borderRadius,
 
-//   [theme.breakpoints.down('sm')]: {
-//     display: "none",
-//   },
-//   [theme.breakpoints.up('md')]: {
-//     display: "block",
-//   },
-// }));
 
-const truncateText = (text : string, length : number) => {
-  if (text.length <= length) {
-    return text;
-  }
-  return `${text.substring(0, length)}...`;
-};
+const Page = ({ params }: any) => {
+  const { data, loading, error } = useFetch(`/projects/${params.id}`);
+  const [anchorElCode, setAnchorElCode] = React.useState<null | HTMLElement>(null);
 
-const Page = () => {
-  const truncatedDescription = truncateText(project.description.text, 200);
-
-  const [anchorElCode, setAnchorElCode] = React.useState(null);
-
-  const handleOpenCodeMenu = (event : any) => {
+  const handleOpenCodeMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElCode(event.currentTarget);
   };
 
@@ -119,6 +63,24 @@ const Page = () => {
   const handleNextProject = () => {
     // Add logic to navigate to the next project
   };
+
+  if (loading) {
+    return (
+      <Box sx={{ display: 'flex', justifyContent: "center", paddingY: 35 }}>
+        <CircularProgress />
+      </Box>
+    );
+  }
+
+  if (error) {
+    return (
+      <Box sx={{ display: 'flex', justifyContent: "center", paddingY: 35 }}>
+        <Typography variant="h6" color="error">Error loading project</Typography>
+      </Box>
+    );
+  }
+
+  const project = data?.data || {};
 
   return (
     <Box mt={20}>
@@ -149,11 +111,10 @@ const Page = () => {
                 <Typography variant="h6" sx={{ fontWeight: 500 }}>
                   {project.description.heading}
                 </Typography>
-                <Tooltip title={project.description.text} arrow>
-                  <Typography variant="body1" sx={{ mt: 1 }}>
-                    {truncatedDescription}
-                  </Typography>
-                </Tooltip>
+                <Typography variant="body1" sx={{ mt: 1 }}>
+                  {project.description.text}
+                </Typography>
+            
               </Box>
               <Box
                 mt={2}
@@ -162,7 +123,7 @@ const Page = () => {
                 gap={1}
                 paddingRight={10}
               >
-                {project.technologies.map((tech, index) => (
+                {project.technologies.map((tech: string, index: number) => (
                   <Typography
                     key={index}
                     variant="body2"
@@ -243,20 +204,12 @@ const Page = () => {
             </StickyBox>
           </Grid>
           <RightGrid item xs={12} md={6}>
-            {project.images.map((image, index) => (
+            {project.images.map((image: string, index: number) => (
               <ComputerWindowCard key={index} imageSrc={image} />
             ))}
           </RightGrid>
         </Grid>
       </Container>
-      {/* <FloatingBox>
-        <IconButton onClick={handlePreviousProject} color="inherit">
-          <ArrowBackIcon />
-        </IconButton>
-        <IconButton onClick={handleNextProject} color="inherit">
-          <ArrowForwardIcon />
-        </IconButton>
-      </FloatingBox> */}
     </Box>
   );
 };

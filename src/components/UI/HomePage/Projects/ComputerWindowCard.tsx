@@ -73,6 +73,7 @@ const ExtraInfoBox = styled(Box)({
 });
 
 const ComputerWindowCard = ({ imageSrc, showProjectInfo } : any) => {
+  
   return (
     <StyledCard>
       <NoPaddingCardContent>
@@ -87,7 +88,7 @@ const ComputerWindowCard = ({ imageSrc, showProjectInfo } : any) => {
       </NoPaddingCardContent>
       {showProjectInfo && (
         <ExtraInfoBox>
-          <CustomLink href={`projects/${showProjectInfo.id}`}>
+          <CustomLink href={`projects/${showProjectInfo._id}`}>
             <Box>
               <Typography variant="h6">{showProjectInfo?.title}</Typography>
               <Typography variant="body1">Case study</Typography>

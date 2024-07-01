@@ -1,49 +1,36 @@
-import { Box, Container, Grid, Typography } from "@mui/material";
+"use client";
+import { Box, CircularProgress, Container, Grid, Typography } from "@mui/material";
 import DrawIcon from "@mui/icons-material/Draw";
 import StorageIcon from "@mui/icons-material/Storage";
 import HomeRepairServiceIcon from "@mui/icons-material/HomeRepairService";
+import useFetch from "@/hooks/useFetch";
 
 const Skills = () => {
+  const { data, loading } = useFetch('/skills');
+
+  if (loading) {
+    return (
+      <Box sx={{ display: 'flex', justifyContent: "center", paddingY: 35 }}>
+        <CircularProgress />
+      </Box>
+    );
+  }
+
+  const skills = data?.data || [];
+
+  const frontendSkills = skills.filter((skill : any) => skill.category === "frontEnd");
+  const backendSkills = skills.filter((skill : any) => skill.category === "backEnd");
+  const toolSkills = skills.filter((skill : any) => skill.category === "tools");
+
   const CustomColor = { primary: "#485B48", secondary: "" };
-  const frontend = [
-    { title: "HTML", icon: "" },
-    { title: "CSS", icon: "" },
-    { title: "Javascript", icon: "" },
-    { title: "Typescript", icon: "" },
-    { title: "React", icon: "" },
-    { title: "Nextjs", icon: "" },
-    { title: "TailwindCSS", icon: "" },
-    { title: "MUI", icon: "" },
-    { title: "Redux", icon: "" },
-    { title: "Axios", icon: "" },
-  ];
-  const backend = [
-    { title: "Nodejs", icon: "" },
-    { title: "Expressjs", icon: "" },
-    { title: "Mongodb", icon: "" },
-    { title: "Mongoose", icon: "" },
-    { title: "Postgres", icon: "" },
-    { title: "Prisma", icon: "" },
-    { title: "Zod", icon: "" },
-];
-  const tools = [
-    { title: "Github", icon: "" },
-    { title: "Vscode", icon: "" },
-    { title: "Postman", icon: "" },
-    { title: "Vercel", icon: "" },
-    { title: "Netlify", icon: "" },
-    { title: "Render", icon: "" },
-    { title: "Figma", icon: "" },
-    { title: "Adobexd", icon: "" },
-  ];
+
   return (
     <Box
       mt={35}
       id="skills"
       sx={{
         borderRadius: 8,
-        background:
-          "linear-gradient(0deg, rgb(15,28,8) 0%, rgb(32,57,18) 100%)",
+        background: "linear-gradient(0deg, rgb(15,28,8) 0%, rgb(32,57,18) 100%)",
         color: "white",
         padding: 10,
         minHeight: 800,
@@ -62,12 +49,16 @@ const Skills = () => {
             variant="body1"
             sx={{ textAlign: "center", color: "white" }}
           >
-            Using the latest technologies to build scalable, efficient, and
-            innovative web applications.
+            Using the latest technologies to build scalable, efficient, and innovative web applications.
           </Typography>
         </Box>
 
-        <Box mt={5} display={"flex"} justifyContent={"center"} alignItems={"center"}>
+        <Box
+          mt={5}
+          display={"flex"}
+          justifyContent={"center"}
+          alignItems={"center"}
+        >
           <Grid container spacing={4}>
             {/* Frontend Card */}
             <Grid item xs={12} md={4}>
@@ -86,31 +77,30 @@ const Skills = () => {
                 <Typography variant="h4" mb={2}>
                   Frontend
                 </Typography>
-                <Box display={"flex"} paddingTop={5} justifyContent={"center"} alignItems={"center"}>
-                <Grid container spacing={2} justifyContent="center">
-                  {frontend?.map((item) => {
-                    return (
-                      <Grid item>
+                <Box
+                  display={"flex"}
+                  paddingTop={5}
+                  justifyContent={"center"}
+                  alignItems={"center"}
+                >
+                  <Grid container spacing={2} justifyContent="center">
+                    {frontendSkills.map((item : any) => (
+                      <Grid item key={item._id}>
                         <Box
                           sx={{
-                            // bgcolor: `${CustomColor.primary}`,
                             borderBottom: "1px solid white",
                             display: "flex",
                             justifyContent: "center",
                             alignItems: "center",
-                            // borderRadius: 2,
-                            // minHeight: 100,
-                            // minWidth: 100,
                           }}
                         >
                           <Typography variant="body1" sx={{ color: "white" }}>
-                            {item?.title}
+                            {item.name}
                           </Typography>
                         </Box>
                       </Grid>
-                    );
-                  })}
-                </Grid>
+                    ))}
+                  </Grid>
                 </Box>
               </Box>
             </Grid>
@@ -131,32 +121,30 @@ const Skills = () => {
                 <Typography variant="h4" mb={2}>
                   Backend
                 </Typography>
-                <Box display={"flex"} paddingTop={5} justifyContent={"center"} alignItems={"center"}>
-
-                <Grid container spacing={2} justifyContent="center">
-                {backend?.map((item) => {
-                    return (
-                      <Grid item>
+                <Box
+                  display={"flex"}
+                  paddingTop={5}
+                  justifyContent={"center"}
+                  alignItems={"center"}
+                >
+                  <Grid container spacing={2} justifyContent="center">
+                    {backendSkills.map((item : any) => (
+                      <Grid item key={item._id}>
                         <Box
                           sx={{
-                            // bgcolor: `${CustomColor.primary}`,
                             borderBottom: "1px solid white",
                             display: "flex",
                             justifyContent: "center",
                             alignItems: "center",
-                            // borderRadius: 2,
-                            // minHeight: 100,
-                            // minWidth: 100,
                           }}
                         >
                           <Typography variant="body1" sx={{ color: "white" }}>
-                            {item?.title}
+                            {item.name}
                           </Typography>
                         </Box>
                       </Grid>
-                    );
-                  })}
-                </Grid>
+                    ))}
+                  </Grid>
                 </Box>
               </Box>
             </Grid>
@@ -177,33 +165,30 @@ const Skills = () => {
                 <Typography variant="h4" mb={2}>
                   Other Tools
                 </Typography>
-                <Box display={"flex"} paddingTop={5} justifyContent={"center"} alignItems={"center"}>
-
-                <Grid container spacing={2} justifyContent="center">
-                {tools?.map((item) => {
-                    return (
-                      <Grid item>
+                <Box
+                  display={"flex"}
+                  paddingTop={5}
+                  justifyContent={"center"}
+                  alignItems={"center"}
+                >
+                  <Grid container spacing={2} justifyContent="center">
+                    {toolSkills.map((item : any) => (
+                      <Grid item key={item._id}>
                         <Box
                           sx={{
-                            // bgcolor: `${CustomColor.primary}`,
                             borderBottom: "1px solid white",
-                           
                             display: "flex",
                             justifyContent: "center",
                             alignItems: "center",
-                            // borderRadius: 2,
-                            // minHeight: 100,
-                            // minWidth: 100,
                           }}
                         >
                           <Typography variant="body1" sx={{ color: "white" }}>
-                            {item?.title}
+                            {item.name}
                           </Typography>
                         </Box>
                       </Grid>
-                    );
-                  })}
-                </Grid>
+                    ))}
+                  </Grid>
                 </Box>
               </Box>
             </Grid>

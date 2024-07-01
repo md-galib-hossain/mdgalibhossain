@@ -5,9 +5,9 @@ import "./HeroSection.css";
 import Link from "next/link";
 
 const HeroSection = ({ user }: any) => {
-  const statusColor = user?.status === "available" ? "green" : "orange";
+  const statusColor = user?.status === "Active" ? "green" : "orange";
   const statusText =
-    user?.status === "available" ? "I am available" : "I am not available";
+    user?.status === "Active" ? "I am available" : "I am not available";
 
   return (
     <Box className="hero-section">
@@ -61,8 +61,7 @@ const HeroSection = ({ user }: any) => {
             {user?.name}
           </Typography>
           <Box mt={2}>
-            {user?.roles.map((role: { name: string }) => {
-              return (
+           
                 <Typography
                   variant="h4"
                   sx={{
@@ -70,10 +69,9 @@ const HeroSection = ({ user }: any) => {
                     fontWeight: "500",
                   }}
                 >
-                  {role?.name}
+                  {user?.role}
                 </Typography>
-              );
-            })}
+            
           </Box>
           <Typography variant="body1" sx={{ mt: 1, fontWeight: "500" }}>
             {user?.headline}

@@ -143,7 +143,7 @@ const ResponsiveAppBar = ({ user }: any) => {
                   textAlign="center"
                   component={Link}
                   target="_"
-                  href={`https://drive.google.com/file/d/${user.resumeLinkId}/view`}
+                  href={`https://drive.google.com/file/d/${user?.resumeLinkId}/view`}
                   sx={{ textDecoration: "none", color: "inherit" }}
                 >
                   View Resume
@@ -153,7 +153,7 @@ const ResponsiveAppBar = ({ user }: any) => {
                 <Typography
                   textAlign="center"
                   component={Link}
-                  href={`https://drive.google.com/uc?export=download&id=${user.resumeLinkId}`}
+                  href={`https://drive.google.com/uc?export=download&id=${user?.resumeLinkId}`}
                   sx={{ textDecoration: "none", color: "inherit" }}
                 >
                   Download Resume
@@ -232,7 +232,7 @@ const ResponsiveAppBar = ({ user }: any) => {
                 <Typography
                   sx={{ textDecoration: "none", color: "inherit" }}
                   component={Link}
-                  href={`https://drive.google.com/uc?export=download&id=${user.resumeLinkId}`}
+                  href={`https://drive.google.com/uc?export=download&id=${user?.resumeLinkId}`}
                 >
                   Resume
                 </Typography>

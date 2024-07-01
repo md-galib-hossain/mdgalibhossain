@@ -1,40 +1,21 @@
 "use client";
 import React from "react";
-import { Box, Container, Typography, CardMedia, Stack, Chip, Grid } from "@mui/material";
+import { Box, Container, Typography, CardMedia, Stack, Chip, Grid, CircularProgress } from "@mui/material";
+import useFetch from "@/hooks/useFetch";
 
-const blogPost = {
-  id: 1,
-  title: "Understanding React Hooks",
-  publishDate: "2024-06-30",
-  coverImage: "https://i.ibb.co/KLXDmQq/Screenshot-2024-06-29-230011.png",
-  images: [
-    "https://i.ibb.co/KLXDmQq/Screenshot-2024-06-29-230011.png",
-    "https://i.ibb.co/KLXDmQq/Screenshot-2024-06-29-230011.png",
-    "https://i.ibb.co/KLXDmQq/Screenshot-2024-06-29-230011.png",
-    "https://i.ibb.co/KLXDmQq/Screenshot-2024-06-29-230011.png"
-  ],
-  excerpt: "React Hooks have revolutionized the way we write functional components. In this post, we'll dive into the basics of useState and useEffect.",
-  contentSections: [
-    {
-      header: "React Hooks were introduced in version 16.8",
-      body: "and they allow you to use state and other React features without writing a class. The most commonly used hooks are useState and useEffect."
-    },
-    {
-      header: "useState",
-      body: "The useState hook allows you to add state to functional components..."
-    },
-    {
-      header: "useEffect",
-      body: "The useEffect hook lets you perform side effects in function components..."
-    }
-  ],
-  tags: ["React", "JavaScript", "Web Development", "Hooks"],
-  category: "Frontend Development",
-  estimatedReadingTime: 5, 
-};
+
 
 const ViewFullPost = ({params} : any) => {
     
+
+  const { data, loading, error } = useFetch(`/blogs/${params.id}`);
+  if(loading){
+
+   return  <Box sx={{ display: 'flex', justifyContent:"center",paddingY : 35 }}>
+   <CircularProgress />
+ </Box>
+  }
+  const blogPost = data?.data
   return (
     <Box mt={10}>
       <Container>
@@ -43,7 +24,7 @@ const ViewFullPost = ({params} : any) => {
         </Typography>
         <CardMedia
           component="img"
-          height="400"
+          height="600"
           image={blogPost.coverImage}
           alt={blogPost.title}
         />
@@ -53,16 +34,19 @@ const ViewFullPost = ({params} : any) => {
         <Typography variant="body1" color="textSecondary" paragraph>
           {blogPost.excerpt}
         </Typography>
+        <Typography variant="body1" color="textSecondary" paragraph>
+          <div dangerouslySetInnerHTML={{ __html: blogPost.content }} />
+        </Typography>
         <Typography variant="body2" color="textSecondary" gutterBottom>
           {blogPost.category} • {blogPost.estimatedReadingTime} min read
         </Typography>
         <Stack direction="row" spacing={1} mt={2} flexWrap="wrap">
-          {blogPost.tags.map((tag, index) => (
+          {blogPost?.tags?.map((tag : string, index : number) => (
             <Chip label={tag} key={index} variant="outlined" size="small" />
           ))}
         </Stack>
         <Box mt={4}>
-          {blogPost.contentSections.map((section, index) => (
+          {blogPost?.contentSections?.map((section : any, index : number) => (
             <Box key={index} mb={3}>
               <Typography variant="h4" gutterBottom>{section.header}</Typography>
               <Typography variant="body1" paragraph>{section.body}</Typography>
@@ -70,7 +54,7 @@ const ViewFullPost = ({params} : any) => {
           ))}
         </Box>
         <Grid container mt={4} spacing={4} justifyContent={"center"}>
-          {blogPost.images.map((image, index) => (
+          {blogPost?.images?.map((image : string, index : number) => (
             <Grid item sm={6}  md={3}>
             <CardMedia
               component="img"
