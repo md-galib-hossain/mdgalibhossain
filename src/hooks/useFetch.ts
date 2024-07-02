@@ -11,7 +11,7 @@ const useFetch = (url: string) => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const response = await axios.get(`https://portfolio-dashboard-backend.onrender.com//api/v1${url}`);
+        const response = await axios.get(`https://portfolio-dashboard-backend.onrender.com/api/v1${url}`);
         setData(response.data); 
       } catch (err: any) {
         setError(err);
