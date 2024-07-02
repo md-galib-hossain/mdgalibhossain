@@ -7,7 +7,13 @@ const nextConfig = {
                 hostname : "**"
             }
         ]
-    }
-};
+    },
+    rules: {
+        "react/no-unescaped-entities": "off",
+      },
+      eslint: {
+        ignoreDuringBuilds: false,
+      },
+}
 
-export default nextConfig;
+export default  nextConfig
