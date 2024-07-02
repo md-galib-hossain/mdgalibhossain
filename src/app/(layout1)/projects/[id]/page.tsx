@@ -42,8 +42,6 @@ const RightGrid = styled(Grid)(({ theme }) => ({
   marginTop: theme.spacing(2),
 }));
 
-
-
 const Page = ({ params }: any) => {
   const { data, loading, error } = useFetch(`/projects/${params.id}`);
   const [anchorElCode, setAnchorElCode] = React.useState<null | HTMLElement>(null);
@@ -114,7 +112,6 @@ const Page = ({ params }: any) => {
                 <Typography variant="body1" sx={{ mt: 1 }}>
                   {project.description.text}
                 </Typography>
-            
               </Box>
               <Box
                 mt={2}
