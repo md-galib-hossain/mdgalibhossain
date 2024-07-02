@@ -3,19 +3,18 @@ import React from "react";
 import { Box, Container, Typography, CardMedia, Stack, Chip, Grid, CircularProgress } from "@mui/material";
 import useFetch from "@/hooks/useFetch";
 
-
-
-const ViewFullPost = ({params} : any) => {
-    
-
+const ViewFullPost = ({ params }: any) => {
   const { data, loading, error } = useFetch(`/blogs/${params.id}`);
-  if(loading){
 
-   return  <Box sx={{ display: 'flex', justifyContent:"center",paddingY : 35 }}>
-   <CircularProgress />
- </Box>
+  if (loading) {
+    return (
+      <Box sx={{ display: 'flex', justifyContent: "center", paddingY: 35 }}>
+        <CircularProgress />
+      </Box>
+    );
   }
-  const blogPost = data?.data
+
+  const blogPost = data?.data;
   return (
     <Box mt={10}>
       <Container>
@@ -41,12 +40,12 @@ const ViewFullPost = ({params} : any) => {
           {blogPost.category} • {blogPost.estimatedReadingTime} min read
         </Typography>
         <Stack direction="row" spacing={1} mt={2} flexWrap="wrap">
-          {blogPost?.tags?.map((tag : string, index : number) => (
+          {blogPost?.tags?.map((tag: string, index: number) => (
             <Chip label={tag} key={index} variant="outlined" size="small" />
           ))}
         </Stack>
         <Box mt={4}>
-          {blogPost?.contentSections?.map((section : any, index : number) => (
+          {blogPost?.contentSections?.map((section: any, index: number) => (
             <Box key={index} mb={3}>
               <Typography variant="h4" gutterBottom>{section.header}</Typography>
               <Typography variant="body1" paragraph>{section.body}</Typography>
@@ -54,16 +53,15 @@ const ViewFullPost = ({params} : any) => {
           ))}
         </Box>
         <Grid container mt={4} spacing={4} justifyContent={"center"}>
-          {blogPost?.images?.map((image : string, index : number) => (
-            <Grid item sm={6}  md={3}>
-            <CardMedia
-              component="img"
-              height="200"
-              image={image}
-              alt={`blog-post-image-${index}`}
-              key={index}
-              sx={{ mb: 2 }}
-            />
+          {blogPost?.images?.map((image: string, index: number) => (
+            <Grid item sm={6} md={3} key={index}>
+              <CardMedia
+                component="img"
+                height="200"
+                image={image}
+                alt={`blog-post-image-${index}`}
+                sx={{ mb: 2 }}
+              />
             </Grid>
           ))}
         </Grid>
